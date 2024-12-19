@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - ".:/myapp"
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: "192.168.1.2"  # Your local machine's IP address
+      DATABASE_USERNAME: "dummy_role"
+      DATABASE_PASSWORD: "dummy@123"
+      DATABASE_NAME: "dummy_db"
+    networks:
+      - myapp_network
+
+networks:
+  myapp_network:
+    driver: bridge
